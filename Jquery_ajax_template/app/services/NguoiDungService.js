@@ -78,7 +78,7 @@ function NguoiDungService() {
     this.layThongTinNguoiDung = function(taiKhoan){
         var danhSachNguoiDung = JSON.parse(localStorage.getItem('danhSachNguoiDung'));        
         return danhSachNguoiDung.find(function(item){
-            return item.TaiKhoan ===taiKhoan;
+            return item.TaiKhoan === taiKhoan;
         });
     }
 
