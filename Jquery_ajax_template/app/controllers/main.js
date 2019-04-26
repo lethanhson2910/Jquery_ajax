@@ -19,8 +19,35 @@ $(document).ready(function () {
     //Dom sua
     $('body').delegate('.btnSua', 'click', function () {
         getInput('Cập nhật người dùng', 'Cập nhật', 'btnSua');
+        var taiKhoan = $(this).data('taikhoan');
+
+        //Cach 1
+        // var viTri = nguoiDungService.layViTriNguoiDung(taiKhoan);
+        // var danhSachNguoiDung = JSON.parse(localStorage.getItem('danhSachNguoiDung'));
+
+        //Cach 2
+        var nguoiDung = nguoiDungService.layThongTinNguoiDung(taiKhoan);
+
+        $('#TaiKhoan').val(taiKhoan);
+        $('#MatKhau').val(nguoiDung.MatKhau);
+        $('#HoTen').val(nguoiDung.HoTen);
+        $('#Email').val(nguoiDung.Email);
+        $('#SoDienThoai').val(nguoiDung.SoDT);
+        $('#loaiNguoiDung').val(nguoiDung.MaLoaiNguoiDung);
+
     })
 
+    $('body').delegate('#btnSua', 'click', function () {
+       
+        var taiKhoan = $('#TaiKhoan').val();
+        var hoTen = $('#HoTen').val();
+        var matKhau = $('#MatKhau').val();
+        var email = $('#Email').val();
+        var soDienThoai = $('#SoDienThoai').val();
+        var loaiNguoiDung = $('#loaiNguoiDung').val();
+        var nguoiDung = new NguoiDung(taiKhoan, matKhau, hoTen, email, soDienThoai, loaiNguoiDung);
+        nguoiDungService.suaNguoiDung(nguoiDung);
+    })    
     $('body').delegate('#btnThem', 'click', function () {
         var taiKhoan = $('#TaiKhoan').val();
         var hoTen = $('#HoTen').val();
@@ -31,10 +58,6 @@ $(document).ready(function () {
 
         var nguoiDung = new NguoiDung(taiKhoan, matKhau, hoTen, email, soDienThoai, loaiNguoiDung);
         nguoiDungService.themNguoiDung(nguoiDung);
-    })
-
-    $('body').delegate('.btnSua', 'click', function () {
-        
     })
 
     $('body').delegate('.btnXoa', 'click', function () {
@@ -53,7 +76,7 @@ $(document).ready(function () {
         nguoiDungService.layDanhSachNguoiDung()
             .done(function (result) {
                 taoBang(result);
-                localStorage.setItem('danhSachNguoiDung',JSON.stringify(result));
+                localStorage.setItem('danhSachNguoiDung', JSON.stringify(result));
             })
             .fail(function (err) {
                 console.log(err);
@@ -76,7 +99,7 @@ $(document).ready(function () {
                 <td>${item.SoDT}</td>
                 <td>${item.TenLoaiNguoiDung}</td>
                 <td>
-                    <button class="btn btn-success btnSua" data-toggle="modal" data-target="#myModal">Sửa</button>
+                    <button class="btn btn-success btnSua" data-taikhoan="${item.TaiKhoan}" data-toggle="modal" data-target="#myModal">Sửa</button>
                     <button class="btn btn-danger btnXoa" data-taikhoan="${item.TaiKhoan}">Xóa</button>
                 </td>
                 

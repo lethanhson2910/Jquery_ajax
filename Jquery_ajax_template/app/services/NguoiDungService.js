@@ -54,11 +54,39 @@ function NguoiDungService() {
         return mangTimKiem;
     }
 
-    this.suaNguoiDung = function (taikhoan){
+    this.layViTriNguoiDung = function(taikhoan){
+        
+        var danhSachNguoiDung = JSON.parse(localStorage.getItem('danhSachNguoiDung'));
+        //Cach 1
+        // var vitri;
+        // danhSachNguoiDung.map(function(item, index){
+        //     if(item.TaiKhoan === taikhoan)
+        //     {
+        //         vitri = index;
+        //         return index;
+        //     }
+        // return vitri;
+        // });
+
+        //Cach 2
+        //findIndex: tim vi tri
+        return danhSachNguoiDung.findIndex(function(item){
+            return item.TaiKhoan === taikhoan;
+        });
+    }
+
+    this.layThongTinNguoiDung = function(taiKhoan){
+        var danhSachNguoiDung = JSON.parse(localStorage.getItem('danhSachNguoiDung'));        
+        return danhSachNguoiDung.find(function(item){
+            return item.TaiKhoan ===taiKhoan;
+        });
+    }
+
+    this.suaNguoiDung = function (nguoiDung){
         $.ajax({
-            url: 'http://svcy.myclass.vn/api/QuanLyTrungTam/CapNhatNguoiDung',
+            url: 'http://svcy.myclass.vn/api/QuanLyTrungTam/CapNhatThongTinNguoiDung',
             type: "PUT",
-            data: taikhoan
+            data: nguoiDung
         })
         .done(function (result) {
             location.reload();
