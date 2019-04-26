@@ -45,7 +45,9 @@ $(document).ready(function () {
         var email = $('#Email').val();
         var soDienThoai = $('#SoDienThoai').val();
         var loaiNguoiDung = $('#loaiNguoiDung').val();
+
         var nguoiDung = new NguoiDung(taiKhoan, matKhau, hoTen, email, soDienThoai, loaiNguoiDung);
+
         nguoiDungService.suaNguoiDung(nguoiDung);
     })    
     $('body').delegate('#btnThem', 'click', function () {
