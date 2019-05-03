@@ -2,7 +2,9 @@ $(document).ready(function () {
     var nguoiDungService = new NguoiDungService();
 
     layDanhSachNguoiDung();
-
+    console.log("Them");
+    console.log("Them moi");
+    
     function getInput(title, btnTitle, btnID) {
         $('.modal-title').html(title);
         var footer = `
